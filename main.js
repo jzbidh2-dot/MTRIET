@@ -1,5 +1,5 @@
 // 👇👇👇 QUAN TRỌNG: DÁN LINK SCRIPT MỚI CỦA CHỊ VÀO ĐÂY 👇👇👇
-const LINK_SCRIPT = "DÁN_LINK_APPS_SCRIPT_MỚI_VÀO_ĐÂY"; 
+const LINK_SCRIPT = "https://script.google.com/macros/s/AKfycbxYb8xNShvVNzcbEHQGOXDK2FwAPi4t6dJSfu8hnFWHI0hm_y2RZKdaBv9tOW0vAfmZ/exec"; 
 
 // Các biến theo dõi trạng thái
 let isCaptchaVerified = false;
