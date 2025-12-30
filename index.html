@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu hành trình đơn hàng - MinT Express</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <header class="vt-header">
+        <div class="container d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <div class="vt-logo me-4">MINH TRIẾT</div> 
+                <nav class="d-none d-md-flex">
+                    <a href="#" class="nav-link">Trang chủ</a>
+                    <a href="#" class="nav-link">Dịch vụ</a>
+                    <a href="#" class="nav-link">Tin tức</a>
+                    <a href="#" class="nav-link">Hỗ trợ</a>
+                </nav>
+            </div>
+            <div class="d-flex text-white">
+                <span class="me-3"><i class="bi bi-person-circle"></i> Đăng nhập</span>
+                <span>VN <i class="bi bi-flag"></i></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="vt-banner" onclick="window.location.href='https://shopee.vn/shopcuamint'" style="cursor: pointer;">
+        <div class="banner-title">TRA CỨU HÀNH TRÌNH ĐƠN HÀNG</div>
+        <div class="banner-sub">"Mạng chuyển phát nhanh rộng khắp"</div>
+    </div>
+
+    <div class="container search-section">
+        <div class="row align-items-center">
+            <div class="col-md-7 pe-md-5">
+                <h3 class="form-title">Mã phiếu gửi</h3>
+                <p class="form-note">(Nhập mã đơn hàng để tra cứu trạng thái xử lý)</p>
+                
+                <input type="text" id="maDon" class="form-control vt-input" placeholder="VD : DH12345, 67890" style="text-transform: uppercase;">
+                
+                <div class="fake-captcha" onclick="toggleCaptcha()" style="cursor: pointer;">
+                    <div class="captcha-box" id="captchaBox">
+                        <i class="bi bi-check-lg" id="captchaCheck" style="display: none;"></i>
+                    </div>
+                    <span style="font-size: 14px; color: #555; margin-left: 10px;">Tôi không phải là người máy</span>
+                    <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" style="height: 30px; margin-left: auto; opacity: 0.5;">
+                </div>
+
+                <button class="btn btn-vt" onclick="traCuu()">TRA CỨU <i class="bi bi-arrow-right ms-2"></i></button>
+
+                <div id="loading" class="d-none mt-3">
+                    <span class="spinner-border spinner-border-sm text-danger" role="status"></span>
+                    <span class="text-danger ms-2">Đang tìm kiếm dữ liệu...</span>
+                </div>
+            </div>
+
+            <div class="col-md-5 d-none d-md-block text-center">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/delivery-boy-riding-scooter-illustration-download-in-svg-png-gif-file-formats--scooty-vehicle-bike-food-pack-e-commerce-shopping-illustrations-2895782.png" class="illus-img" alt="Shipper">
+            </div>
+        </div>
+
+        <div id="ketQua" class="d-none result-box" onclick="window.location.href='https://www.facebook.com/MinTService'" style="cursor: pointer;">
+            <div class="result-header">
+                KẾT QUẢ TRA CỨU: <span id="ma-display" class="text-danger">...</span>
+            </div>
+            <div class="p-4">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <small class="text-muted">Dịch vụ</small>
+                        <h5 class="fw-bold" id="dv">...</h5>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <small class="text-muted">Trạng thái</small>
+                        <h5 class="fw-bold text-danger" id="tt">...</h5>
+                    </div>
+                </div>
+
+                <small class="text-muted">Tiến độ xử lý</small>
+                <div class="progress mb-3" style="height: 10px;">
+                    <div id="bar" class="progress-bar progress-bar-vt" style="width: 0%"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span id="td_text" class="fw-bold text-danger">0%</span>
+                    <span class="text-success fw-bold">Hoàn thành</span>
+                </div>
+
+                <div class="admin-note-box">
+                    <div class="note-header"><i class="bi bi-chat-quote-fill"></i> Lời nhắn từ Admin:</div>
+                    <div id="gc" class="note-content">...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-menu d-none d-lg-block">
+        
+        <div class="float-item" onclick="window.location.href='dichvu.html'" style="cursor: pointer;">
+            <i class="bi bi-plus-circle float-icon"></i>
+            <span class="float-text">DỊCH VỤ</span>
+        </div>
+
+        <div class="float-item" onclick="window.location.href='tintuc.html'" style="cursor: pointer;">
+            <i class="bi bi-calculator float-icon"></i>
+            <span class="float-text">TIN TỨC</span>
+        </div>
+
+        <div class="float-item" style="background: var(--vt-red); cursor: pointer;" onclick="window.location.href='index.html'">
+            <i class="bi bi-geo-alt float-icon"></i>
+            <span class="float-text">TRA CỨU</span>
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+    <div id="mint-alert" class="mint-alert-overlay d-none">
+    <div class="mint-alert-box">
+        <div class="icon-circle">
+            <i id="alert-icon" class="bi bi-exclamation-lg"></i>
+        </div>
+        <h4 id="alert-title">Thông báo</h4>
+        <p id="alert-msg">Nội dung...</p>
+        <button class="btn-close-alert" onclick="closeMintAlert()">Đã hiểu</button>
+    </div>
+</div>
+</body>
+</html>
